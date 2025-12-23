@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Berita Acara IT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ================= FORM KIRI ================= -->
+  <div class="form-panel">
+    <h3>Permintaan Layanan</h3>
+
+    <label>Nama</label>
+    <input type="text" id="nama">
+
+    <label>Unit</label>
+    <select id="unit">
+      <option value="">-- Pilih Unit --</option>
+      <option>Stasiun Solo Balapan</option>
+      <option>Stasiun Yogyakarta</option>
+      <option>Stasiun Purwosari</option>
+    </select>
+
+    <label>Telepon / Toka / Email</label>
+    <input type="number" id="kontak">
+
+    <label>Waktu Pengerjaan</label>
+    <small>Tanggal Mulai</small>
+    <input type="date" id="tglMulai">
+
+    <small>Jam Mulai</small>
+    <input type="time" id="jamMulai">
+
+    <small>Tanggal Selesai</small>
+    <input type="date" id="tglSelesai">
+
+    <small>Jam Selesai</small>
+    <input type="time" id="jamSelesai">
+
+    <hr>
+
+    <h4>Hasil Penanganan</h4>
+
+    <label>Kategori Layanan</label>
+    <select id="kategoriLayanan">
+      <option value="">-- Pilih --</option>
+      <option value="troubleshooting">Troubleshooting</option>
+      <option value="instalasi">Instalasi</option>
+    </select>
+
+    <label>Jenis Layanan</label>
+    <select id="jenisLayanan">
+      <option value="">-- Pilih kategori dulu --</option>
+    </select>
+
+    <label>Detail Pekerjaan</label>
+    <input type="text" id="detailPekerjaan">
+
+    <label>Status</label>
+    <select id="statusLayanan">
+      <option value="">-- Pilih --</option>
+      <option value="√">√ Selesai</option>
+      <option value="X">X Gagal</option>
+    </select>
+
+    <label>Keterangan</label>
+    <input type="text" id="keterangan">
+
+    <div class="btn-row">
+      <button type="button" id="addRow">➕ Tambah Baris</button>
+      <button type="button" id="removeRow">🗑️ Hapus Baris</button>
+    </div>
+  </div>
+  <!-- ===== AKHIR FORM PANEL (INI YANG TADI KURANG) ===== -->
+
+
+  <!-- ================= PREVIEW KANAN ================= -->
+  <div class="preview-panel">
+    <div class="page">
+
+      <!-- HEADER -->
+      <img src="header.png" class="header-img">
+
+      <strong>Permintaan Layanan dari :</strong>
+
+      <div class="field">
+        <span class="label">Nama</span>
+        <span class="colon">:</span>
+        <span id="pNama">-</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Unit</span>
+        <span class="colon">:</span>
+        <span id="pUnit">-</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Telepon / Toka / Email</span>
+        <span class="colon">:</span>
+        <span id="pKontak">-</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Waktu Pengerjaan</span>
+        <span class="colon">:</span>
+      </div>
+
+      <div class="field waktu">
+        <div class="value" id="pWaktu">-</div>
+      </div>
+
+      <br>
+
+      <strong>Hasil Penanganan Instalasi dan/atau Troubleshooting :</strong>
+
+      <table class="layanan-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Kategori Layanan</th>
+            <th>Jenis Layanan</th>
+            <th>Detail Pekerjaan</th>
+            <th>Status</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody id="layananBody">
+          <!-- diisi oleh JS -->
+        </tbody>
+      </table>
+
+      <strong style="margin-top:8px; font-size:13px;">
+        * √ : Selesai; &nbsp;&nbsp; X : Gagal
+      </strong>
+
+      <p style="margin-top:10px; text-align: justify;">
+        Menyatakan bahwa, penanganan instalasi dan/atau troubleshooting telah
+        diperiksa dan dilakukan oleh pihak Sistem Informasi dan pihak
+        <strong id="pUnitPernyataan">-</strong> dengan hasil seperti dijelaskan di atas.
+      </p>
+      
+      
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

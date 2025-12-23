@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  font-family: "Times New Roman", serif;
+}
+
+body {
+  margin: 0;
+  background: #cfcfcf;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* FORM */
+.form-panel {
+  width: 340px;
+  background: #f2f2f2;
+  padding: 20px;
+  border-right: 2px solid #aaa;
+  overflow-y: auto;
+}
+
+.form-panel label {
+  display: block;
+  margin-top: 10px;
+}
+
+.form-panel input,
+.form-panel select {
+  width: 100%;
+  padding: 6px;
+}
+
+/* PREVIEW */
+.preview-panel {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  padding: 20mm;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,.4);
+}
+
+.header-img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* FIELD */
+.field {
+  display: grid;
+  grid-template-columns: 200px 20px auto;
+  margin-top: 6px;
+}
+
+.field.waktu {
+  display: block;
+}
+
+.field.waktu .value {
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+/* TABLE */
+.layanan-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.layanan-table th,
+.layanan-table td {
+  border: 1px solid #000;
+  padding: 6px;
+  font-size: 14px;
+}
+
+/* ===== JENIS LAYANAN FULL HEIGHT (ANTI NANGGUNG) ===== */
+/* ===== JENIS LAYANAN: 1 GARIS PEMISAH SAJA ===== */
+.jenis-wrap {
+  display: flex;
+  align-items: stretch;   /* bikin garis full tinggi */
+  height: 100%;
+}
+
+.jenis-kode {
+  width: 55px;
+  text-align: center;
+  border-right: 1px solid #000; /* GARIS PEMISAH */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.jenis-text {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+
+/* ===============================
+   TABLE TEXT WRAP FIX
+================================ */
+.layanan-table td {
+  vertical-align: top;
+  white-space: normal;          /* boleh turun baris */
+  word-break: break-word;       /* potong kata panjang */
+  overflow-wrap: break-word;    /* aman untuk teks random */
+}
+
+/* Khusus kolom detail & keterangan (opsional tapi disarankan) */
+.layanan-table td:nth-child(4),
+.layanan-table td:nth-child(6) {
+  max-width: 220px;             /* biar tidak melebar */
+}
