@@ -279,10 +279,12 @@ body {
 
   /* TTD RESPONSIVE */
   .ttd-row {
-    grid-template-columns: 1fr;
-    row-gap: 30px;
-    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* ⬅️ tetap 2 kolom */
+    gap: 20px;
+    padding: 0 10px;
   }
+  
 
   .ttd-col {
     text-align: center;
