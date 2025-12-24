@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Berita Acara IT</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 <body>
 
@@ -25,7 +27,7 @@
     </select>
 
     <label>Telepon / Toka / Email</label>
-    <input type="number" id="kontak">
+    <input type="text" id="kontak">
 
     <label>Waktu Pengerjaan</label>
     <small>Tanggal Mulai</small>
@@ -73,40 +75,94 @@
       <button type="button" id="addRow">➕ Tambah Baris</button>
       <button type="button" id="removeRow">🗑️ Hapus Baris</button>
     </div>
-  </div>
-  <!-- ===== AKHIR FORM PANEL (INI YANG TADI KURANG) ===== -->
 
+    <hr>
+
+    <label>Selanjutnya</label>
+    <select id="keputusan">
+      <option value="">-- Pilih --</option>
+      <option value="Diterima">Diterima</option>
+      <option value="Ditolak">Ditolak</option>
+    </select>
+
+    <hr>
+
+    <h4>Penandatangan</h4>
+
+    <!-- ===== STAF IT ===== -->
+    <label>Nama Staf IT</label>
+    <input type="text" id="namaStafIT">
+
+    <label>NIPP Staf IT</label>
+    <input type="text" id="nippStafIT">
+
+    <label>TTD Staf IT</label>
+    <canvas id="canvasStafIT" width="300" height="120" class="canvas-ttd"></canvas>
+
+    <div class="btn-row">
+      <button type="button" id="clearStafIT">Hapus TTD</button>
+      <button type="button" id="lockStafIT">🔒 Kunci TTD</button>
+    </div>
+
+    <hr>
+
+    <!-- ===== USER ===== -->
+    <label>Nama User</label>
+    <input type="text" id="namaUser">
+
+    <label>NIPP User</label>
+    <input type="text" id="nippUser">
+
+    <label>TTD User</label>
+    <canvas id="canvasUser" width="300" height="120" class="canvas-ttd"></canvas>
+
+    <div class="btn-row">
+      <button type="button" id="clearUser">Hapus TTD</button>
+      <button type="button" id="lockUser">🔒 Kunci TTD</button>
+    </div>
+
+    <hr>
+
+    <!-- ===== MENGETAHUI (ATASAN) ===== -->
+    <label>TTD Mengetahui (Atasan)</label>
+    <canvas id="canvasMengetahui" width="300" height="120" class="canvas-ttd"></canvas>
+
+    <div class="btn-row">
+      <button type="button" id="clearMengetahui">Hapus TTD</button>
+      <button type="button" id="lockMengetahui">🔒 Kunci TTD</button>
+    </div>
+
+    <hr>
+
+<div class="btn-row">
+  <button type="button" onclick="printDokumen()">🖨️ Print</button>
+  <button type="button" onclick="downloadPDF()">⬇️ Download PDF</button>
+</div>
+
+  </div>
 
   <!-- ================= PREVIEW KANAN ================= -->
   <div class="preview-panel">
     <div class="page">
 
-      <!-- HEADER -->
       <img src="header.png" class="header-img">
 
       <strong>Permintaan Layanan dari :</strong>
 
       <div class="field">
-        <span class="label">Nama</span>
-        <span class="colon">:</span>
-        <span id="pNama">-</span>
+        <span class="label">Nama</span><span class="colon">:</span><span id="pNama">-</span>
       </div>
 
       <div class="field">
-        <span class="label">Unit</span>
-        <span class="colon">:</span>
-        <span id="pUnit">-</span>
+        <span class="label">Unit</span><span class="colon">:</span><span id="pUnit">-</span>
       </div>
 
       <div class="field">
-        <span class="label">Telepon / Toka / Email</span>
-        <span class="colon">:</span>
-        <span id="pKontak">-</span>
+        <span class="label">Telepon / Toka / Email</span><span class="colon">:</span><span id="pKontak">-</span>
       </div>
 
       <div class="field">
-        <span class="label">Waktu Pengerjaan</span>
-        <span class="colon">:</span>
+        <span class="label">Waktu Pengerjaan</span><span class="colon">:</span>
       </div>
 
       <div class="field waktu">
@@ -119,14 +175,9 @@
 
       <table class="layanan-table">
         <thead>
-          <!-- BARIS INVENTARIS (MENYATU) -->
           <tr>
-            <th colspan="6" style="text-align:left;">
-              Nomor Inventaris Aset&nbsp;&nbsp;:&nbsp;&nbsp;-
-            </th>
+            <th colspan="6" style="text-align:left;">Nomor Inventaris Aset : -</th>
           </tr>
-      
-          <!-- HEADER TABEL UTAMA -->
           <tr>
             <th>No</th>
             <th>Kategori Layanan</th>
@@ -136,24 +187,59 @@
             <th>Keterangan</th>
           </tr>
         </thead>
-      
-        <tbody id="layananBody">
-          <!-- diisi JS -->
-        </tbody>
+        <tbody id="layananBody"></tbody>
       </table>
-      
 
-      <strong style="margin-top:8px; font-size:13px;">
-        * √ : Selesai; &nbsp;&nbsp; X : Gagal
-      </strong>
+      <div style="margin-top:6px; font-size:13px;">
+        * √ : Selesai;&nbsp;&nbsp; X : Gagal
+      </div>
 
       <p style="margin-top:10px; text-align: justify;">
         Menyatakan bahwa, penanganan instalasi dan/atau troubleshooting telah
         diperiksa dan dilakukan oleh pihak Sistem Informasi dan pihak
-        <strong id="pUnitPernyataan">-</strong> dengan hasil seperti dijelaskan di atas.
+        <strong id="pUnitPernyataan">-</strong>
+        dengan hasil seperti dijelaskan di atas.
       </p>
-      
-      
+
+      <div class="keputusan">
+        <span id="pKeputusan">Selanjutnya, -</span>
+      </div>
+
+      <!-- ================= TTD PREVIEW ================= -->
+      <div class="ttd-section">
+
+        <div class="ttd-row">
+          <div class="ttd-col">
+            <strong>Staf IT</strong>
+            <div class="ttd-space">
+              <img id="imgTtdStafIT" class="img-ttd">
+            </div>
+            <span id="pNamaStafIT">-</span><br>
+            NIPP. <span id="pNippStafIT">-</span>
+          </div>
+
+          <div class="ttd-col">
+            <strong>User</strong>
+            <div class="ttd-space">
+              <img id="imgTtdUser" class="img-ttd">
+            </div>
+            <span id="pNamaUser">-</span><br>
+            NIPP. <span id="pNippUser">-</span>
+          </div>
+        </div>
+
+        <!-- ===== MENGETAHUI ===== -->
+        <div class="ttd-center mengetahui">
+          <strong>Mengetahui,</strong>
+          <div class="ttd-space">
+            <img id="imgTtdMengetahui" class="img-ttd">
+          </div>
+          <strong>Winaris Ahmad</strong><br>
+          NIPP. 55867
+        </div>
+
+      </div>
+
     </div>
   </div>
 

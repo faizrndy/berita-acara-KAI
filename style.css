@@ -13,7 +13,7 @@ body {
   height: 100vh;
 }
 
-/* FORM */
+/* ================= FORM ================= */
 .form-panel {
   width: 340px;
   background: #f2f2f2;
@@ -33,7 +33,7 @@ body {
   padding: 6px;
 }
 
-/* PREVIEW */
+/* ================= PREVIEW ================= */
 .preview-panel {
   flex: 1;
   padding: 20px;
@@ -54,7 +54,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* FIELD */
+/* ================= FIELD ================= */
 .field {
   display: grid;
   grid-template-columns: 200px 20px auto;
@@ -70,7 +70,7 @@ body {
   white-space: nowrap;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 .layanan-table {
   width: 100%;
   border-collapse: collapse;
@@ -82,20 +82,116 @@ body {
   border: 1px solid #000;
   padding: 6px;
   font-size: 14px;
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-/* ===== JENIS LAYANAN FULL HEIGHT (ANTI NANGGUNG) ===== */
-/* ===== JENIS LAYANAN: 1 GARIS PEMISAH SAJA ===== */
+.layanan-table td:nth-child(4),
+.layanan-table td:nth-child(6) {
+  max-width: 220px;
+}
+
+/* ================= KEPUTUSAN ================= */
+.keputusan {
+  margin-top: 0;
+}
+
+/* ================= TTD SECTION ================= */
+.ttd-section {
+  margin-top: 20px;
+}
+
+.ttd-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 10px; /* tidak terlalu pojok */
+}
+
+.ttd-col {
+  text-align: center;
+}
+
+/* ===== RUANG TTD (PAS DI TENGAH) ===== */
+.ttd-space {
+  height: 90px;                 /* ⬅️ RUANG IDEAL */
+  display: flex;
+  align-items: center;          /* tengah vertikal */
+  justify-content: center;      /* tengah horizontal */
+  margin: 12px 0;
+}
+
+/* ===== MENGETAHUI ===== */
+.ttd-center {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.ttd-center.mengetahui {
+  margin-top: 60px;
+}
+
+.ttd-center.mengetahui .ttd-space {
+  height: 100px;                /* lebih lega */
+}
+
+/* ================= CANVAS TTD ================= */
+.canvas-ttd {
+  border: 1px solid #000;
+  background: #fff;
+  cursor: crosshair;
+
+  /* ✨ SMOOTH DRAWING SUPPORT */
+  touch-action: none;           /* penting utk touchscreen */
+}
+
+/* ===== SAAT TTD DIKUNCI ===== */
+.canvas-ttd.locked {
+  pointer-events: none;         /* ⛔ tidak bisa dicoret */
+  background: #f0f0f0;
+  opacity: 0.85;
+  cursor: not-allowed;
+  border-style: dashed;         /* indikator visual */
+}
+
+/* ================= IMG TTD (PREVIEW) ================= */
+.img-ttd {
+  max-width: 220px;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+/* ===== BUTTON PRINT & DOWNLOAD (FIX TIDAK MUNCUL) ===== */
+.btn-print {
+  position: sticky;
+  bottom: 0;
+  background: #f2f2f2;
+  padding: 10px 0;
+  display: flex;
+  gap: 10px;
+  border-top: 2px solid #aaa;
+}
+
+.btn-print button {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* ================= JENIS LAYANAN ================= */
 .jenis-wrap {
   display: flex;
-  align-items: stretch;   /* bikin garis full tinggi */
+  align-items: stretch;
   height: 100%;
 }
 
 .jenis-kode {
   width: 55px;
   text-align: center;
-  border-right: 1px solid #000; /* GARIS PEMISAH */
+  border-right: 1px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,19 +204,34 @@ body {
   align-items: center;
 }
 
-
 /* ===============================
-   TABLE TEXT WRAP FIX
+   PRINT MODE (HANYA PREVIEW)
 ================================ */
-.layanan-table td {
-  vertical-align: top;
-  white-space: normal;          /* boleh turun baris */
-  word-break: break-word;       /* potong kata panjang */
-  overflow-wrap: break-word;    /* aman untuk teks random */
-}
+@media print {
+  body {
+    background: white;
+  }
 
-/* Khusus kolom detail & keterangan (opsional tapi disarankan) */
-.layanan-table td:nth-child(4),
-.layanan-table td:nth-child(6) {
-  max-width: 220px;             /* biar tidak melebar */
+  /* ❌ SEMBUNYIKAN FORM INPUT */
+  .form-panel {
+    display: none !important;
+  }
+
+  /* ❌ SEMBUNYIKAN TOMBOL */
+  .btn-print {
+    display: none !important;
+  }
+
+  /* ✅ PREVIEW FULL HALAMAN */
+  .preview-panel {
+    padding: 0;
+  }
+
+  .page {
+    margin: 0;
+    box-shadow: none;
+    width: 100%;
+    min-height: auto;
+    padding: 20mm;
+  }
 }
