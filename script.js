@@ -161,7 +161,7 @@ el("keputusan").addEventListener("change", e => {
 });
 
 /* ===============================
-   ENGINE TTD (UNIVERSAL)
+   ENGINE TTD
 ================================ */
 function setupTTD(canvasId, imgId, clearBtnId, lockBtnId) {
   const canvas = el(canvasId);
@@ -174,10 +174,8 @@ function setupTTD(canvasId, imgId, clearBtnId, lockBtnId) {
   let locked = false;
   let lastX = 0, lastY = 0;
 
-  /* SMOOTH DRAW */
   ctx.lineWidth = 2.5;
   ctx.lineCap = "round";
-  ctx.lineJoin = "round";
   ctx.strokeStyle = "#000";
 
   const getPos = e => {
@@ -212,7 +210,6 @@ function setupTTD(canvasId, imgId, clearBtnId, lockBtnId) {
     img.src = canvas.toDataURL("image/png");
   };
 
-  /* EVENTS */
   canvas.addEventListener("mousedown", start);
   canvas.addEventListener("mousemove", move);
   canvas.addEventListener("mouseup", stop);
@@ -236,47 +233,47 @@ function setupTTD(canvasId, imgId, clearBtnId, lockBtnId) {
 }
 
 /* ===============================
-   INIT TTD (3 ROLE)
+   INIT TTD
 ================================ */
 setupTTD("canvasStafIT", "imgTtdStafIT", "clearStafIT", "lockStafIT");
 setupTTD("canvasUser", "imgTtdUser", "clearUser", "lockUser");
-setupTTD(
-  "canvasMengetahui",
-  "imgTtdMengetahui",
-  "clearMengetahui",
-  "lockMengetahui"
-);
-/* 👉 nanti tinggal tambah:
-setupTTD("canvasMengetahui","imgTtdMengetahui","clearMengetahui","lockMengetahui");
-*/
+setupTTD("canvasMengetahui", "imgTtdMengetahui", "clearMengetahui", "lockMengetahui");
+
+/* ===============================
+   PRINT
+================================ */
 function printDokumen() {
   window.print();
 }
 
+/* ===============================
+   DOWNLOAD PDF (BERSIH & 1 HALAMAN)
+================================ */
 function downloadPDF() {
 
-  // VALIDASI TTD
-  if (!el("imgTtdStafIT").src) {
-    alert("TTD Staf IT belum diisi");
-    return;
-  }
-  if (!el("imgTtdUser").src) {
-    alert("TTD User belum diisi");
-    return;
-  }
-  if (!el("imgTtdMengetahui").src) {
-    alert("TTD Mengetahui belum diisi");
-    return;
-  }
+  if (!el("imgTtdStafIT").src) return alert("TTD Staf IT belum diisi");
+  if (!el("imgTtdUser").src) return alert("TTD User belum diisi");
+  if (!el("imgTtdMengetahui").src) return alert("TTD Mengetahui belum diisi");
 
   const element = document.querySelector(".page");
 
   const opt = {
-    margin: 10,
+    margin: 0,
     filename: "Berita_Acara_IT.pdf",
     image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      scrollY: 0
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait"
+    },
+    pagebreak: {
+      mode: ["avoid-all"]
+    }
   };
 
   html2pdf().set(opt).from(element).save();

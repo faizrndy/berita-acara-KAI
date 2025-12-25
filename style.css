@@ -343,3 +343,12 @@ body {
     flex-direction: column;
   }
 }
+
+/* ===============================
+   PDF MODE (HTML2PDF)
+================================ */
+@media print {
+  @page {
+    margin: 0;
+  }
+}
