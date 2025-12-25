@@ -1,3 +1,6 @@
+/* ===============================
+   GLOBAL
+================================ */
 * {
   box-sizing: border-box;
   font-family: "Times New Roman", serif;
@@ -8,53 +11,151 @@ body {
   background: #cfcfcf;
 }
 
+/* ===============================
+   LAYOUT
+================================ */
 .container {
   display: flex;
   height: 100vh;
 }
 
-/* ================= FORM ================= */
+/* ===============================
+   FORM PANEL (DESAIN BARU)
+================================ */
 .form-panel {
-  width: 340px;
-  background: #f2f2f2;
-  padding: 20px;
-  border-right: 2px solid #aaa;
+  width: 360px;
+  background: #f8f9fb;
+  padding: 18px 16px;
+  border-right: 1px solid #d0d4da;
   overflow-y: auto;
 }
 
-.form-panel label {
-  display: block;
-  margin-top: 10px;
+/* JUDUL */
+.form-panel h3 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 6px;
 }
 
+.form-panel h4 {
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* LABEL */
+.form-panel label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-panel small {
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+  display: block;
+}
+
+/* INPUT & SELECT */
 .form-panel input,
 .form-panel select {
   width: 100%;
-  padding: 6px;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #c9ccd3;
+  font-size: 14px;
+  background: #fff;
+  transition: border .2s, box-shadow .2s;
 }
 
-/* ================= PREVIEW ================= */
+.form-panel input:focus,
+.form-panel select:focus {
+  outline: none;
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 2px rgba(74,108,247,.15);
+}
+
+/* GARIS PEMISAH */
+.form-panel hr {
+  border: none;
+  border-top: 1px dashed #ccc;
+  margin: 18px 0;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-row button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #4a6cf7;
+  color: #fff;
+  transition: background .2s, transform .1s;
+}
+
+.btn-row button:hover {
+  background: #3a5be0;
+}
+
+.btn-row button:active {
+  transform: scale(0.98);
+}
+
+/* ===============================
+   PREVIEW PANEL
+================================ */
 .preview-panel {
   flex: 1;
   padding: 20px;
   overflow: auto;
 }
 
+/* ===============================
+   PAGE A4 (ANTI PINDAH HALAMAN)
+================================ */
 .page {
   width: 210mm;
-  min-height: 297mm;
-  background: white;
+  height: 297mm;
+  background: #fff;
   padding: 20mm;
   margin: auto;
   box-shadow: 0 0 10px rgba(0,0,0,.4);
+
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
+/* ===============================
+   HEADER
+================================ */
 .header-img {
   width: 100%;
   margin-bottom: 10px;
 }
 
-/* ================= FIELD ================= */
+/* ===============================
+   FIELD
+================================ */
 .field {
   display: grid;
   grid-template-columns: 200px 20px auto;
@@ -70,11 +171,14 @@ body {
   white-space: nowrap;
 }
 
-/* ================= TABLE ================= */
+/* ===============================
+   TABLE
+================================ */
 .layanan-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  page-break-inside: avoid;
 }
 
 .layanan-table th,
@@ -83,158 +187,112 @@ body {
   padding: 6px;
   font-size: 14px;
   vertical-align: top;
-  white-space: normal;
   word-break: break-word;
-  overflow-wrap: break-word;
 }
 
-.layanan-table td:nth-child(4),
-.layanan-table td:nth-child(6) {
-  max-width: 220px;
+.layanan-table tr {
+  page-break-inside: avoid;
 }
 
-/* ================= KEPUTUSAN ================= */
+/* ===============================
+   KEPUTUSAN
+================================ */
 .keputusan {
-  margin-top: 0;
+  margin-top: 6px;
 }
 
-/* ================= TTD SECTION ================= */
+/* ===============================
+   TTD SECTION
+================================ */
 .ttd-section {
-  margin-top: 20px;
+  margin-top: 12px;
+  page-break-inside: avoid;
 }
 
 .ttd-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0 10px; /* tidak terlalu pojok */
+  padding: 0 10px;
 }
 
 .ttd-col {
   text-align: center;
 }
 
-/* ===== RUANG TTD (PAS DI TENGAH) ===== */
 .ttd-space {
-  height: 90px;                 /* ⬅️ RUANG IDEAL */
+  height: 85px;
   display: flex;
-  align-items: center;          /* tengah vertikal */
-  justify-content: center;      /* tengah horizontal */
-  margin: 12px 0;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0;
 }
 
-/* ===== MENGETAHUI ===== */
 .ttd-center {
   text-align: center;
-  margin-top: 40px;
-}
-
-.ttd-center.mengetahui {
-  margin-top: 60px;
+  margin-top: 18px;
 }
 
 .ttd-center.mengetahui .ttd-space {
-  height: 100px;                /* lebih lega */
+  height: 90px;
 }
 
-/* ================= CANVAS TTD ================= */
+/* ===============================
+   CANVAS & IMG TTD
+================================ */
 .canvas-ttd {
   border: 1px solid #000;
   background: #fff;
   cursor: crosshair;
-
-  /* ✨ SMOOTH DRAWING SUPPORT */
-  touch-action: none;           /* penting utk touchscreen */
+  touch-action: none;
+  border-radius: 6px;
 }
 
-/* ===== SAAT TTD DIKUNCI ===== */
 .canvas-ttd.locked {
-  pointer-events: none;         /* ⛔ tidak bisa dicoret */
+  pointer-events: none;
   background: #f0f0f0;
   opacity: 0.85;
-  cursor: not-allowed;
-  border-style: dashed;         /* indikator visual */
+  border-style: dashed;
 }
 
-/* ================= IMG TTD (PREVIEW) ================= */
 .img-ttd {
-  max-width: 220px;
-  max-height: 100px;
+  max-width: 200px;
+  max-height: 90px;
   object-fit: contain;
 }
 
-/* ===== BUTTON PRINT & DOWNLOAD (FIX TIDAK MUNCUL) ===== */
-.btn-print {
-  position: sticky;
-  bottom: 0;
-  background: #f2f2f2;
-  padding: 10px 0;
-  display: flex;
-  gap: 10px;
-  border-top: 2px solid #aaa;
-}
-
-.btn-print button {
-  flex: 1;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-
-/* ================= JENIS LAYANAN ================= */
-.jenis-wrap {
-  display: flex;
-  align-items: stretch;
-  height: 100%;
-}
-
-.jenis-kode {
-  width: 55px;
-  text-align: center;
-  border-right: 1px solid #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.jenis-text {
-  padding-left: 10px;
-  display: flex;
-  align-items: center;
-}
-
 /* ===============================
-   PRINT MODE (HANYA PREVIEW)
+   PRINT MODE
 ================================ */
 @media print {
+
   body {
     background: white;
   }
 
-  /* ❌ SEMBUNYIKAN FORM INPUT */
-  .form-panel {
+  .form-panel,
+  .btn-row {
     display: none !important;
   }
 
-  /* ❌ SEMBUNYIKAN TOMBOL */
-  .btn-print {
-    display: none !important;
-  }
-
-  /* ✅ PREVIEW FULL HALAMAN */
   .preview-panel {
     padding: 0;
   }
 
   .page {
+    width: 210mm;
+    height: 297mm;
     margin: 0;
+    padding: 18mm;
     box-shadow: none;
-    width: 100%;
-    min-height: auto;
-    padding: 20mm;
+    overflow: hidden;
+  }
+
+  * {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }
+
 /* ===============================
    RESPONSIVE MOBILE
 ================================ */
@@ -245,56 +303,33 @@ body {
     height: auto;
   }
 
-  /* FORM JADI FULL WIDTH */
   .form-panel {
     width: 100%;
     border-right: none;
-    border-bottom: 2px solid #aaa;
+    border-bottom: 2px solid #ddd;
   }
 
-  /* PREVIEW JUGA FULL WIDTH */
   .preview-panel {
     padding: 10px;
   }
 
   .page {
     width: 100%;
-    min-height: auto;
-    padding: 15px;
+    height: auto;
+    padding: 12px;
     box-shadow: none;
   }
 
-  /* FIELD RAPAT */
   .field {
     grid-template-columns: 120px 15px auto;
     font-size: 14px;
   }
 
-  /* TABLE SCROLL DI HP */
-  .layanan-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  /* TTD RESPONSIVE */
   .ttd-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* ⬅️ tetap 2 kolom */
-    gap: 20px;
-    padding: 0 10px;
-  }
-  
-
-  .ttd-col {
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .ttd-center {
-    margin-top: 30px;
-  }
-
-  /* CANVAS TTD FULL WIDTH */
   .canvas-ttd {
     width: 100%;
     height: 120px;
@@ -304,36 +339,7 @@ body {
     max-width: 100%;
   }
 
-  /* BUTTON LEBAR */
   .btn-row {
     flex-direction: column;
-  }
-
-  .btn-row button {
-    width: 100%;
-  }
-}
-
-/* ===============================
-   PRINT MODE
-================================ */
-@media print {
-  body {
-    background: white;
-  }
-
-  .form-panel {
-    display: none; /* form tidak ikut print */
-  }
-
-  .preview-panel {
-    padding: 0;
-  }
-
-  .page {
-    box-shadow: none;
-    margin: 0;
-    width: 100%;
-    padding: 15mm;
   }
 }
