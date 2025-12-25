@@ -2,18 +2,32 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Berita Acara IT</title>
+  <title>Dokumen IT</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
 
 <div class="container">
 
-  <!-- ================= FORM KIRI ================= -->
-  <div class="form-panel">
+<!-- ================= FORM KIRI ================= -->
+<div class="form-panel">
+
+  <!-- ===== PILIHAN TEMPLATE ===== -->
+  <h3>Pilihan Template</h3>
+  <label>Jenis Dokumen</label>
+  <select id="templateSelect">
+    <option value="">-- Pilih Template --</option>
+    <option value="ba-it">Berita Acara Instalasi & Troubleshooting IT</option>
+    <option value="checklist">Formulir Checklist Kesesuaian</option>
+  </select>
+
+  <hr>
+
+  <!-- ================= TEMPLATE 1 : BA IT ================= -->
+  <div id="template-ba-it" style="display:none">
+
     <h3>Permintaan Layanan</h3>
 
     <label>Nama</label>
@@ -90,7 +104,6 @@
 
     <h4>Penandatangan</h4>
 
-    <!-- ===== STAF IT ===== -->
     <label>Nama Staf IT</label>
     <input type="text" id="namaStafIT">
 
@@ -107,7 +120,6 @@
 
     <hr>
 
-    <!-- ===== USER ===== -->
     <label>Nama User</label>
     <input type="text" id="namaUser">
 
@@ -124,7 +136,6 @@
 
     <hr>
 
-    <!-- ===== MENGETAHUI (ATASAN) ===== -->
     <label>TTD Mengetahui (Atasan)</label>
     <canvas id="canvasMengetahui" width="300" height="120" class="canvas-ttd"></canvas>
 
@@ -135,117 +146,371 @@
 
     <hr>
 
-<div class="btn-row">
-  <button type="button" onclick="printDokumen()">🖨️ Print</button>
-  <button type="button" onclick="downloadPDF()">⬇️ Download PDF</button>
+    <div class="btn-row">
+      <button type="button" onclick="printDokumen()">🖨️ Print</button>
+      <button type="button" onclick="downloadPDF()">⬇️ Download PDF</button>
+    </div>
+
+  </div>
+
+  <!-- ================= TEMPLATE 2 : CHECKLIST ================= -->
+  <div id="template-checklist" style="display:none">
+
+    <h3>Formulir Checklist Kesesuaian</h3>
+
+    <h4>Informasi Umum</h4>
+
+<label>Tanggal Pemeriksaan</label>
+<input type="date" id="cTanggal">
+
+<label>Nama Petugas</label>
+<input type="text" id="cPetugas">
+
+<label>Unit / Lokasi Komputer</label>
+<select id="cUnit">
+  <option value="">-- Pilih Unit --</option>
+  <option>Stasiun Solo Balapan</option>
+  <option>Stasiun Solo Jebres</option>
+  <option>Stasiun Purwosari</option>
+  <option>Stasiun Yogyakarta</option>
+</select>
+
+<label>Nama Pengguna Komputer</label>
+<input type="text" id="cPengguna">
+
+<label>Kode Inventaris</label>
+<input type="text" id="cInventaris">
+
+<label>Merk / Tipe PC / Laptop</label>
+<input type="text" id="cMerk">
+
+<label>Nomor Seri</label>
+<input type="text" id="cSerial">
+
+<hr>
+<h4>Pemeriksaan Software</h4>
+
+<label>Aplikasi / Sistem</label>
+<select id="cApp">
+  <option value="">-- Pilih --</option>
+  <option value="os">Sistem Operasi (Windows/Linux/macOS)</option>
+  <option>Microsoft Office</option>
+  <option>Antivirus</option>
+  <option>Check Software/Lisensi (Legal)</option>
+  <option>Password Web Browser</option>
+  <option>Web filtering</option>
+  <option value="other">Lainnya</option>
+</select>
+
+<!-- Input manual jika pilih Lainnya -->
+<div id="cAppOtherWrap" style="display:none; margin-top:6px">
+  <label>Nama Aplikasi / Sistem</label>
+  <input type="text" id="cAppOther" placeholder="Ketik aplikasi / sistem">
 </div>
 
+
+<label>Status</label>
+
+<!-- Status Normal -->
+<div id="statusNormal" style="margin-top:4px">
+  <input type="checkbox" id="cStatus"> <strong>Sesuai / Terpasang</strong>
+</div>
+
+<!-- Status Sistem Operasi -->
+<div id="statusOS" style="margin-top:6px; display:none; gap:14px">
+  <label><input type="checkbox" id="osW"> W</label>
+  <label><input type="checkbox" id="osL"> L</label>
+  <label><input type="checkbox" id="osM"> M</label>
+</div>
+
+
+<label>Serial Number</label>
+<input type="text" id="cSerialApp">
+
+<label>Versi</label>
+<input type="text" id="cVersi">
+
+<label>Keterangan</label>
+<input type="text" id="cKet">
+
+<div class="btn-row">
+  <button type="button" id="addChecklistRow">➕ Tambah Baris</button>
+  <button type="button" id="removeChecklistRow">🗑️ Hapus Baris</button>
+</div>
+
+<hr>
+<h4>Hardware, Jaringan & Keamanan</h4>
+
+<label>Item</label>
+<select id="cItem">
+  <option value="">-- Pilih Item --</option>
+  <option>Akses Internet/Intranet</option>
+  <option>Akses ke Aplikasi Internal KAI</option>
+  <option>Password Login Aktif & Aman</option>
+  <option>Auto Lock Aktif</option>
+  <option>User Device</option>
+  <option>Sinkronisasi Waktu</option>
+  <option>Port USB </option>
+  <option>Label Asset </option>
+</select>
+
+<label>Status</label>
+<div style="margin-top:4px">
+  <input type="checkbox" id="cItemStatus"> <strong>Ya</strong>
+</div>
+
+<label>Keterangan</label>
+<input type="text" id="cItemKet">
+
+<div class="btn-row">
+  <button type="button" id="addItemRow">➕ Tambah Baris</button>
+  <button type="button" id="removeItemRow">🗑️ Hapus Baris</button>
+</div>
+
+<hr>
+<h4>Catatan Tambahan / Rekomendasi</h4>
+
+<label>Catatan</label>
+<textarea
+  id="cCatatan"
+  rows="4"
+  placeholder="Tuliskan catatan tambahan atau rekomendasi dari hasil pemeriksaan..."
+  style="width:100%; padding:8px; font-size:14px; border-radius:6px; border:1px solid #c9ccd3;"
+></textarea>
+
+
+
   </div>
 
-  <!-- ================= PREVIEW KANAN ================= -->
-  <div class="preview-panel">
-    <div class="page">
+</div>
 
-      <img src="header.png" class="header-img">
+<!-- ================= PREVIEW KANAN ================= -->
+<div class="preview-panel">
 
-      <strong>Permintaan Layanan dari :</strong>
+  <!-- ===== PAGE BA IT ===== -->
+  <div class="page" id="preview-ba-it" style="display:none">
 
-      <div class="field">
-        <span class="label">Nama</span><span class="colon">:</span><span id="pNama">-</span>
-      </div>
-
-      <div class="field">
-        <span class="label">Unit</span><span class="colon">:</span><span id="pUnit">-</span>
-      </div>
-
-      <div class="field">
-        <span class="label">Telepon / Toka / Email</span><span class="colon">:</span><span id="pKontak">-</span>
-      </div>
-
-      <div class="field">
-        <span class="label">Waktu Pengerjaan</span><span class="colon">:</span>
-      </div>
-
-      <div class="field waktu">
-        <div class="value" id="pWaktu">-</div>
-      </div>
-
-      <br>
-
-      <strong>Hasil Penanganan Instalasi dan/atau Troubleshooting :</strong>
-
-      <table class="layanan-table">
-        <thead>
-          <tr>
-            <th colspan="6" style="text-align:left;">Nomor Inventaris Aset : -</th>
-          </tr>
-          <tr>
-            <th>No</th>
-            <th>Kategori Layanan</th>
-            <th>Jenis Layanan</th>
-            <th>Detail Pekerjaan</th>
-            <th>Status</th>
-            <th>Keterangan</th>
-          </tr>
-        </thead>
-        <tbody id="layananBody"></tbody>
-      </table>
-
-      <div style="margin-top:6px; font-size:13px;">
-        * √ : Selesai;&nbsp;&nbsp; X : Gagal
-      </div>
-
-      <p style="margin-top:10px; text-align: justify;">
-        Menyatakan bahwa, penanganan instalasi dan/atau troubleshooting telah
-        diperiksa dan dilakukan oleh pihak Sistem Informasi dan pihak
-        <strong id="pUnitPernyataan">-</strong>
-        dengan hasil seperti dijelaskan di atas.
-      </p>
-
-      <div class="keputusan">
-        <span id="pKeputusan">Selanjutnya, -</span>
-      </div>
-
-      <!-- ================= TTD PREVIEW ================= -->
-      <div class="ttd-section">
-
-        <div class="ttd-row">
-          <div class="ttd-col">
-            <strong>Staf IT</strong>
-            <div class="ttd-space">
-              <img id="imgTtdStafIT" class="img-ttd">
-            </div>
-            <span id="pNamaStafIT">-</span><br>
-            NIPP. <span id="pNippStafIT">-</span>
-          </div>
-
-          <div class="ttd-col">
-            <strong>User</strong>
-            <div class="ttd-space">
-              <img id="imgTtdUser" class="img-ttd">
-            </div>
-            <span id="pNamaUser">-</span><br>
-            NIPP. <span id="pNippUser">-</span>
-          </div>
-        </div>
-
-        <!-- ===== MENGETAHUI ===== -->
-        <div class="ttd-center mengetahui">
-          <strong>Mengetahui,</strong>
-          <div class="ttd-space">
-            <img id="imgTtdMengetahui" class="img-ttd">
-          </div>
-          <strong>Winaris Ahmad</strong><br>
-          NIPP. 55867
-        </div>
-
-      </div>
-
+    <img src="header.png" class="header-img">
+  
+    <strong>Permintaan Layanan dari :</strong>
+  
+    <div class="field">
+      <span class="label">Nama</span><span class="colon">:</span><span id="pNama">-</span>
     </div>
+  
+    <div class="field">
+      <span class="label">Unit</span><span class="colon">:</span><span id="pUnit">-</span>
+    </div>
+  
+    <div class="field">
+      <span class="label">Telepon</span><span class="colon">:</span><span id="pKontak">-</span>
+    </div>
+  
+    <div class="field">
+      <span class="label">Waktu</span><span class="colon">:</span>
+    </div>
+  
+    <div class="field waktu">
+      <div class="value" id="pWaktu">-</div>
+    </div>
+  
+    <br>
+  
+    <strong>Hasil Penanganan Instalasi dan/atau Troubleshooting :</strong>
+  
+    <table class="layanan-table">
+      <thead>
+        <tr>
+          <th colspan="6" style="text-align:left;">Nomor Inventaris Aset : -</th>
+        </tr>
+        <tr>
+          <th>No</th>
+          <th>Kategori Layanan</th>
+          <th>Jenis Layanan</th>
+          <th>Detail Pekerjaan</th>
+          <th>Status</th>
+          <th>Keterangan</th>
+        </tr>
+      </thead>
+      <tbody id="layananBody"></tbody>
+    </table>
+  
+    <div style="margin-top:6px; font-size:13px;">
+      * √ : Selesai;&nbsp;&nbsp; X : Gagal
+    </div>
+  
+    <p style="margin-top:10px; text-align: justify;">
+      Menyatakan bahwa, penanganan instalasi dan/atau troubleshooting telah
+      diperiksa dan dilakukan oleh pihak Sistem Informasi dan pihak
+      <strong id="pUnitPernyataan">-</strong>
+      dengan hasil seperti dijelaskan di atas.
+    </p>
+  
+    <div class="keputusan">
+      <span id="pKeputusan">Selanjutnya, -</span>
+    </div>
+  
+    <!-- ===== TTD ===== -->
+    <div class="ttd-section">
+  
+      <div class="ttd-row">
+        <div class="ttd-col">
+          <strong>Staf IT</strong>
+          <div class="ttd-space">
+            <img id="imgTtdStafIT" class="img-ttd">
+          </div>
+          <span id="pNamaStafIT">-</span><br>
+          NIPP. <span id="pNippStafIT">-</span>
+        </div>
+  
+        <div class="ttd-col">
+          <strong>User</strong>
+          <div class="ttd-space">
+            <img id="imgTtdUser" class="img-ttd">
+          </div>
+          <span id="pNamaUser">-</span><br>
+          NIPP. <span id="pNippUser">-</span>
+        </div>
+      </div>
+  
+      <div class="ttd-center mengetahui">
+        <strong>Mengetahui,</strong>
+        <div class="ttd-space">
+          <img id="imgTtdMengetahui" class="img-ttd">
+        </div>
+        <strong>Winaris Ahmad</strong><br>
+        NIPP. 55867
+      </div>
+  
+    </div>
+  
   </div>
+  
+
+  <!-- ===== PAGE CHECKLIST ===== -->
+  <div class="page" id="preview-checklist" style="display:none">
+
+    <img src="header2.png" class="header-img">
+
+    <strong>Informasi Umum</strong>
+
+<div class="field">
+  <span class="label">Tanggal Pemeriksaan</span>
+  <span class="colon">:</span>
+  <span id="pCTanggal">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Nama Petugas</span>
+  <span class="colon">:</span>
+  <span id="pCPetugas">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Unit / Lokasi Komputer</span>
+  <span class="colon">:</span>
+  <span id="pCUnit">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Nama Pengguna Komputer</span>
+  <span class="colon">:</span>
+  <span id="pCPengguna">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Kode Inventaris</span>
+  <span class="colon">:</span>
+  <span id="pCInventaris">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Merk / Tipe PC / Laptop</span>
+  <span class="colon">:</span>
+  <span id="pCMerk">-</span>
+</div>
+
+<div class="field">
+  <span class="label">Nomor Seri</span>
+  <span class="colon">:</span>
+  <span id="pCSerial">-</span>
+</div>
+
+<h4>Pemeriksaan Software</h4>
+
+<table class="layanan-table checklist-table" style="margin-top:10px">
+
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Aplikasi / Sistem</th>
+      <th>Status</th>
+      <th>Serial Number</th>
+      <th>Versi</th>
+      <th>Keterangan</th>
+    </tr>
+  </thead>
+  <tbody id="checklistBody"></tbody>
+</table>
+
+<h4>Hardware, Jaringan & Keamanan </h4>
+<table class="layanan-table checklist-table" style="margin-top:6px">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Item</th>
+      <th>Status</th>
+      <th>Keterangan</th>
+    </tr>
+  </thead>
+  <tbody id="itemChecklistBody"></tbody>
+</table>
+
+<br>
+<strong>Catatan Tambahan / Rekomendasi :</strong>
+
+<p id="pCatatanChecklist" style="margin-top:6px; text-align:justify;">
+  -
+</p>
+
+  </div>
+
+  
+</div>
 
 </div>
 
 <script src="script.js"></script>
+
+<script>
+/* ===============================
+   TEMPLATE SWITCHER + PREVIEW
+================================ */
+const templateSelect = document.getElementById("templateSelect");
+const templateBA = document.getElementById("template-ba-it");
+const templateChecklist = document.getElementById("template-checklist");
+const previewBA = document.getElementById("preview-ba-it");
+const previewChecklist = document.getElementById("preview-checklist");
+
+templateSelect.addEventListener("change", e => {
+  const v = e.target.value;
+
+  templateBA.style.display = "none";
+  templateChecklist.style.display = "none";
+  previewBA.style.display = "none";
+  previewChecklist.style.display = "none";
+
+  if (v === "ba-it") {
+    templateBA.style.display = "block";
+    previewBA.style.display = "block";
+  }
+
+  if (v === "checklist") {
+    templateChecklist.style.display = "block";
+    previewChecklist.style.display = "block";
+  }
+});
+</script>
+
 </body>
-</html>
+</html> 
