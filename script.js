@@ -307,7 +307,11 @@ function renderTable() {
             <td rowspan="${group.items.length}">${no}</td>
             <td rowspan="${group.items.length}">${group.label}</td>
           ` : ""}
-          <td>${group.code}.${i + 1} | ${item.jenis}</td>
+         <td>
+  <span class="jenis-prefix">${group.code}.${i + 1} |</span>
+  <span class="jenis-text">${item.jenis}</span>
+</td>
+
           <td>${item.detail}</td>
           <td style="text-align:center">${item.status}</td>
           <td>${item.ket}</td>
@@ -604,4 +608,15 @@ function renderItemChecklist() {
 el("cCatatan")?.addEventListener("input", e => {
   if (!guardChecklist()) return;
   el("pCatatanChecklist").innerText = e.target.value.trim() || "-";
+});
+/* ===============================
+   MIRROR KEPUTUSAN (DITERIMA / DITOLAK)
+================================ */
+el("keputusan")?.addEventListener("change", e => {
+  if (!guardBA()) return;
+
+  const val = e.target.value;
+  el("pKeputusan").innerText = val
+    ? `Selanjutnya, ${val}`
+    : "Selanjutnya, -";
 });

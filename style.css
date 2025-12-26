@@ -20,22 +20,24 @@ body {
 }
 
 /* ===============================
-   FORM PANEL
+   FORM PANEL (KIRI)
 ================================ */
 .form-panel {
   width: 360px;
-  background: #f8f9fb;
+  background: #f9fafc;
   padding: 18px 16px;
   border-right: 1px solid #d0d4da;
   overflow-y: auto;
 }
 
+/* ===== JUDUL ===== */
 .form-panel h3 {
   margin: 0 0 14px;
   font-size: 18px;
   font-weight: bold;
   border-bottom: 2px solid #ddd;
   padding-bottom: 6px;
+  color: #1f2937;
 }
 
 .form-panel h4 {
@@ -43,36 +45,59 @@ body {
   margin-bottom: 6px;
   font-size: 15px;
   font-weight: bold;
+  color: #1f2937;
 }
 
+/* ===== LABEL ===== */
 .form-panel label {
   display: block;
-  margin-top: 12px;
-  font-size: 13px;
+  margin-top: 14px;
+  font-size: 12.5px;
   font-weight: 600;
+  color: #2b2f36;
 }
 
 .form-panel small {
   font-size: 11px;
-  color: #666;
+  color: #6b7280;
   display: block;
   margin-top: 4px;
 }
 
+/* ===== INPUT ===== */
 .form-panel input,
-.form-panel select {
+.form-panel select,
+.form-panel textarea {
   width: 100%;
-  padding: 8px 10px;
-  margin-top: 4px;
-  border-radius: 6px;
-  border: 1px solid #c9ccd3;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1.6px solid #cfd4dc;
   font-size: 14px;
+  background: #ffffff;
+  transition: all 0.2s ease;
 }
 
+.form-panel input:focus,
+.form-panel select:focus,
+.form-panel textarea:focus {
+  outline: none;
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 3px rgba(74,108,247,0.15);
+}
+
+/* Checkbox */
+.form-panel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4a6cf7;
+}
+
+/* Divider */
 .form-panel hr {
   border: none;
-  border-top: 1px dashed #ccc;
-  margin: 18px 0;
+  border-top: 1px dashed #d1d5db;
+  margin: 20px 0;
 }
 
 /* ===============================
@@ -81,19 +106,19 @@ body {
 .btn-row {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .btn-row button {
   flex: 1;
-  padding: 10px;
+  padding: 11px;
   font-size: 14px;
   font-weight: bold;
-  border-radius: 6px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
-  background: #4a6cf7;
   color: #fff;
+  background: linear-gradient(135deg, #4a6cf7, #6c7cff);
 }
 
 /* ===============================
@@ -110,14 +135,10 @@ body {
 ================================ */
 .page {
   width: 210mm;
-  height: 297mm;
-  background: #fff;
-  padding: 12mm 10mm;
+  min-height: 297mm;
+  background: #ffffff;
+  padding: 8mm 8mm;
   margin: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,.4);
-
-  overflow: hidden;
-  page-break-inside: avoid;
 }
 
 /* ===============================
@@ -125,7 +146,7 @@ body {
 ================================ */
 .header-img {
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 /* ===============================
@@ -134,230 +155,139 @@ body {
 .field {
   display: grid;
   grid-template-columns: 200px 20px auto;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .field.waktu {
   display: block;
 }
 
-.field.waktu .value {
-  margin-left: 10px;
-  white-space: nowrap;
-}
-
 /* ===============================
-   TABLE (FIX FINAL)
+   TABLE UMUM
 ================================ */
 .layanan-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 8px;
   table-layout: fixed;
 }
 
-/* ===== HEADER TABLE (1 BARIS, NO WRAP) ===== */
-.layanan-table th {
-  border: 1px solid #000;
-  padding: 6px;
-  font-size: 13px;
-  text-align: center;
-  white-space: nowrap;      /* ⬅️ JUDUL TIDAK TURUN */
-  word-break: keep-all;
-}
-
-/* ===== ISI TABLE (BOLEH TURUN BARIS) ===== */
+.layanan-table th,
 .layanan-table td {
   border: 1px solid #000;
-  padding: 6px;
-  font-size: 13px;
+  padding: 5px;
+  font-size: 12.5px;
+}
+
+.layanan-table th {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.layanan-table td {
   vertical-align: top;
-  white-space: normal;      /* ⬅️ ISI BOLEH WRAP */
   word-break: break-word;
 }
 
-/* ===== WIDTH PER KOLOM ===== */
+/* WIDTH */
 .layanan-table th:nth-child(1),
-.layanan-table td:nth-child(1) {
-  width: 6%;
-  text-align: center;
-}
+.layanan-table td:nth-child(1) { width: 6%; text-align: center; }
 
 .layanan-table th:nth-child(2),
-.layanan-table td:nth-child(2) {
-  width: 16%;
-}
+.layanan-table td:nth-child(2) { width: 16%; }
 
 .layanan-table th:nth-child(3),
-.layanan-table td:nth-child(3) {
-  width: 16%;
-}
+.layanan-table td:nth-child(3) { width: 18%; }
 
 .layanan-table th:nth-child(4),
-.layanan-table td:nth-child(4) {
-  width: 30%;
-}
+.layanan-table td:nth-child(4) { width: 28%; }
 
 .layanan-table th:nth-child(5),
-.layanan-table td:nth-child(5) {
-  width: 8%;
-  text-align: center;
-  font-weight: bold;
-}
+.layanan-table td:nth-child(5) { width: 8%; text-align: center; }
 
 .layanan-table th:nth-child(6),
-.layanan-table td:nth-child(6) {
-  width: 24%;
+.layanan-table td:nth-child(6) { width: 24%; }
+
+/* ===============================
+   FIX JENIS LAYANAN (1.1 | Jaringan)
+================================ */
+.layanan-table td:nth-child(3) {
+  text-align: left !important;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.jenis-prefix,
+.jenis-text {
+  display: inline;
+  white-space: nowrap;
 }
 
 /* ===============================
-   TTD SECTION
+   CHECKLIST TABLE
+================================ */
+.checklist-table {
+  table-layout: fixed;
+}
+
+/* ===============================
+   TTD (PUTIH & RAPAT)
 ================================ */
 .ttd-section {
   margin-top: 6px;
-  page-break-inside: avoid;
 }
 
 .ttd-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0 10px;
 }
 
-.ttd-col {
+.ttd-col,
+.ttd-center {
   text-align: center;
+  margin-top: 6px;
 }
 
 .ttd-space {
-  height: 80px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.ttd-center {
-  text-align: center;
-  margin-top: 18px;
-}
-
-/* ===============================
-   CANVAS & IMG TTD
-================================ */
+/* === CANVAS TTD PUTIH === */
 .canvas-ttd {
+  background-color: #ffffff !important;
   border: 1px solid #000;
-  background: #fff;
   cursor: crosshair;
-  touch-action: none;
 }
 
 .canvas-ttd.locked {
-  pointer-events: none;
-  background: #f0f0f0;
+  background-color: #ffffff !important;
   border-style: dashed;
 }
 
+/* Preview PNG TTD */
 .img-ttd {
-  max-width: 200px;
-  max-height: 90px;
+  background-color: #ffffff;
+  max-width: 150px;
+  max-height: 45px;
   object-fit: contain;
 }
 
 /* ===============================
-   CHECKLIST TABLE (KHUSUS)
-   TIDAK MENGGANGGU BA IT
-================================ */
-
-.checklist-table {
-  table-layout: fixed; /* WAJIB agar width dipatuhi */
-}
-
-.checklist-table th,
-.checklist-table td {
-  padding: 6px;
-  font-size: 13px;
-}
-
-/* No */
-.checklist-table th:nth-child(1),
-.checklist-table td:nth-child(1) {
-  width: 35px;
-  text-align: center;
-}
-
-/* Aplikasi / Sistem */
-.checklist-table th:nth-child(2),
-.checklist-table td:nth-child(2) {
-  width: 150px;
-}
-
-/* Status */
-.checklist-table th:nth-child(3),
-.checklist-table td:nth-child(3) {
-  width: 70px;
-  text-align: center;
-}
-
-/* Serial Number (DIPERKECIL) */
-.checklist-table th:nth-child(4),
-.checklist-table td:nth-child(4) {
-  width: 140px;
-  word-break: break-word;
-}
-
-/* Versi (DIPERBESAR) */
-.checklist-table th:nth-child(5),
-.checklist-table td:nth-child(5) {
-  width: 90px;
-  text-align: center;
-  word-break: break-word;
-}
-
-/* Keterangan */
-.checklist-table th:nth-child(6),
-.checklist-table td:nth-child(6) {
-  width: auto;
-}
-
-.os-check {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.os-check .box {
-  font-size: 22px; /* ukuran kotak */
-  line-height: 1;
-}
-
-.os-check .os-code {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* ===============================
-   FIX POSISI JUDUL HASIL PENANGANAN (BA IT)
-================================ */
-#preview-ba-it strong {
-  display: inline-block;
-  margin-top: -20px;   /* naikkan sedikit */
-}
-
-/* ===============================
-   FIX JARAK SEBELUM HASIL PENANGANAN (BA IT)
-================================ */
-#preview-ba-it .field.waktu + br {
-  display: block;
-  margin-bottom: 4px;
-}
-
-
-
-/* ===============================
-   PRINT MODE
+   PRINT MODE (DESKTOP & HP)
 ================================ */
 @media print {
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
   body {
-    background: white;
+    background: #ffffff;
+    font-size: 10.5pt;
   }
 
   .form-panel,
@@ -370,74 +300,30 @@ body {
   }
 
   .page {
-    margin: 0;
-    padding: 10mm 8mm;
-    box-shadow: none;
-  }
-
-  * {
-    page-break-inside: avoid !important;
-  }
-}
-
-/* ===============================
-   PRINT MODE – 1 HALAMAN JIKA MUAT
-================================ */
-@media print {
-
-  body {
-    background: white;
-    margin: 0;
-    font-size: 11pt;
-  }
-
-  .form-panel,
-  .btn-row {
-    display: none !important;
-  }
-
-  .preview-panel {
+    width: 100%;
+    min-height: auto;
     padding: 0;
-  }
-
-  .page {
     margin: 0;
-    padding: 10mm 8mm;
-    box-shadow: none;
-    height: auto;              /* ⬅️ PENTING */
   }
 
-  /* ===== TABLE ===== */
   table {
-    border-collapse: collapse;
     page-break-inside: auto;
   }
 
   tr {
     page-break-inside: avoid;
-    break-inside: avoid;
   }
 
-  th, td {
-    padding: 3px 5px !important;
-    font-size: 10.5pt !important;
-  }
-
-  /* ===== TTD ===== */
   .ttd-section {
-    margin-top: 10px;
-    page-break-inside: avoid;
-    break-inside: avoid;
+    margin-top: 6px;
   }
-
 }
 
-
-
 /* ===============================
-   RESPONSIVE MOBILE
+   RESPONSIVE HP
 ================================ */
 @media (max-width: 768px) {
+
   .container {
     flex-direction: column;
     height: auto;
@@ -448,13 +334,16 @@ body {
   }
 
   .preview-panel {
-    padding: 10px;
+    padding: 8px;
+    overflow-x: auto;
   }
 
   .page {
-    width: 100%;
-    height: auto;
-    padding: 12px;
-    box-shadow: none;
+    width: 210mm;
+    min-width: 210mm;
+  }
+
+  .btn-row {
+    flex-direction: column;
   }
 }
