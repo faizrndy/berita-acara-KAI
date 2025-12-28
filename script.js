@@ -620,3 +620,197 @@ el("keputusan")?.addEventListener("change", e => {
     ? `Selanjutnya, ${val}`
     : "Selanjutnya, -";
 });
+
+
+/* ===============================
+   CHECKLIST TTD MIRROR (FINAL)
+================================ */
+
+// Tanggal Pemeriksaan → Tanggal TTD
+el("cTanggal")?.addEventListener("change", e => {
+  if (!guardChecklist()) return;
+  el("pCTanggalTTD").innerText = formatTanggalIndo(e.target.value);
+});
+
+// Helper bind input → preview
+const bindChecklistTTD = (inputId, previewId) => {
+  el(inputId)?.addEventListener("input", e => {
+    if (!guardChecklist()) return;
+    el(previewId).innerText = e.target.value || "-";
+  });
+};
+
+// Nama & NIPP
+bindChecklistTTD("cNamaPetugas", "pCNamaPetugas");
+bindChecklistTTD("cNippPetugas", "pCNippPetugas");
+bindChecklistTTD("cNamaPengguna", "pCNamaPengguna");
+bindChecklistTTD("cNippPengguna", "pCNippPengguna");
+
+/* ===============================
+   INIT TTD CHECKLIST
+================================ */
+
+function setupChecklistTTD(canvasId, imgId, clearBtnId, lockBtnId) {
+  const canvas = el(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const img = el(imgId);
+  const clearBtn = el(clearBtnId);
+  const lockBtn = el(lockBtnId);
+
+  let drawing = false;
+  let locked = false;
+  let lastX = 0, lastY = 0;
+
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#000";
+
+  const getPos = e => {
+    const r = canvas.getBoundingClientRect();
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: x - r.left, y: y - r.top };
+  };
+
+  const start = e => {
+    if (locked || !guardChecklist()) return;
+    drawing = true;
+    const p = getPos(e);
+    lastX = p.x;
+    lastY = p.y;
+    e.preventDefault();
+  };
+
+  const move = e => {
+    if (!drawing || locked) return;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x;
+    lastY = p.y;
+    e.preventDefault();
+  };
+
+  const stop = () => {
+    if (!drawing) return;
+    drawing = false;
+    img.src = canvas.toDataURL("image/png");
+  };
+
+  canvas.addEventListener("mousedown", start);
+  canvas.addEventListener("mousemove", move);
+  canvas.addEventListener("mouseup", stop);
+  canvas.addEventListener("mouseleave", stop);
+
+  canvas.addEventListener("touchstart", start);
+  canvas.addEventListener("touchmove", move);
+  canvas.addEventListener("touchend", stop);
+
+  clearBtn.addEventListener("click", () => {
+    if (locked) return alert("TTD terkunci.");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    img.src = "";
+  });
+
+  lockBtn.addEventListener("click", () => {
+    locked = !locked;
+    canvas.classList.toggle("locked", locked);
+    lockBtn.innerText = locked ? "🔓 Buka TTD" : "🔒 Kunci TTD";
+  });
+}
+
+/* ===============================
+   ACTIVATE CHECKLIST TTD
+================================ */
+setupChecklistTTD(
+  "canvasChecklistPetugas",
+  "imgChecklistPetugas",
+  "clearChecklistPetugas",
+  "lockChecklistPetugas"
+);
+
+setupChecklistTTD(
+  "canvasChecklistPengguna",
+  "imgChecklistPengguna",
+  "clearChecklistPengguna",
+  "lockChecklistPengguna"
+);
+
+function printChecklist() {
+  const original = document.body.innerHTML;
+  const content = document.getElementById("preview-checklist").outerHTML;
+
+  document.body.innerHTML = content;
+  window.print();
+  document.body.innerHTML = original;
+  location.reload();
+}
+
+function downloadChecklistPDF() {
+  const element = document.getElementById("preview-checklist");
+
+  const opt = {
+    margin: 0,
+    filename: 'Formulir_Checklist_Kesesuaian_IT.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true
+    },
+    jsPDF: {
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
+    }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+
+const cTanggal = document.getElementById("cTanggal");
+const pCTanggal = document.getElementById("pCTanggal");
+const pCTanggalTTD = document.getElementById("pCTanggalTTD");
+
+const hari = [
+  "Minggu",
+  "Senin",
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu"
+];
+
+const bulan = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember"
+];
+
+cTanggal.addEventListener("change", () => {
+  if (!cTanggal.value) return;
+
+  const d = new Date(cTanggal.value);
+  const teksTanggal =
+    `${hari[d.getDay()]}, ${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
+
+  // tampil di informasi umum
+  pCTanggal.textContent = teksTanggal;
+
+  // tampil di atas TTD
+  pCTanggalTTD.textContent = teksTanggal;
+});

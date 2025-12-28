@@ -278,10 +278,50 @@
   style="width:100%; padding:8px; font-size:14px; border-radius:6px; border:1px solid #c9ccd3;"
 ></textarea>
 
+<hr>
+<h4>Tanda Tangan</h4>
+<label>Nama Petugas Pemeriksaan</label>
+<input type="text" id="cNamaPetugas">
+
+<label>NIPP Petugas Pemeriksaan</label>
+<input type="text" id="cNippPetugas">
+
+
+<label>TTD Pelaksana Pemeriksaan</label>
+<canvas id="canvasChecklistPetugas" width="300" height="120" class="canvas-ttd"></canvas>
+
+<div class="btn-row">
+  <button type="button" id="clearChecklistPetugas">Hapus TTD</button>
+  <button type="button" id="lockChecklistPetugas">🔒 Kunci TTD</button>
+</div>
+
+<hr>
+
+<label>Nama Pengguna Perangkat</label>
+<input type="text" id="cNamaPengguna">
+
+<label>NIPP Pengguna Perangkat</label>
+<input type="text" id="cNippPengguna">
+
+<label>TTD Pengguna Perangkat</label>
+<canvas id="canvasChecklistPengguna" width="300" height="120" class="canvas-ttd"></canvas>
+
+<div class="btn-row">
+  <button type="button" id="clearChecklistPengguna">Hapus TTD</button>
+  <button type="button" id="lockChecklistPengguna">🔒 Kunci TTD</button>
+</div>
+
+<hr>
+
+<div class="btn-row">
+  <button type="button" onclick="printChecklist()">🖨️ Print</button>
+  <button type="button" onclick="downloadChecklistPDF()">⬇️ Download PDF</button>
+</div>
 
 
   </div>
 
+  
 </div>
 
 <!-- ================= PREVIEW KANAN ================= -->
@@ -472,6 +512,38 @@
 <p id="pCatatanChecklist" style="margin-top:6px; text-align:justify;">
   -
 </p>
+<br><br>
+
+<div style="text-align:right; font-size:12px;">
+  <span id="pCTanggalTTD">-</span>
+</div>
+
+<div class="ttd-section">
+
+  <div class="ttd-row">
+
+    <div class="ttd-col">
+      <strong>Pelaksana Pemeriksaan</strong>
+      <div class="ttd-space">
+        <img id="imgChecklistPetugas" class="img-ttd">
+      </div>
+      <span id="pCNamaPetugas">-</span><br>
+      NIPP. <span id="pCNippPetugas">-</span>
+    </div>
+    
+    <div class="ttd-col">
+      <strong>Pengguna Perangkat</strong>
+      <div class="ttd-space">
+        <img id="imgChecklistPengguna" class="img-ttd">
+      </div>
+      <span id="pCNamaPengguna">-</span><br>
+      NIPP. <span id="pCNippPengguna">-</span>
+    </div>
+    
+
+  </div>
+
+</div>
 
   </div>
 
@@ -511,6 +583,43 @@ templateSelect.addEventListener("change", e => {
   }
 });
 </script>
-
+<script>
+  /* ===============================
+     FORMAT TANGGAL CHECKLIST
+     Hari, tanggal bulan tahun
+  ================================ */
+  const hariID = [
+    "Minggu", "Senin", "Selasa", "Rabu",
+    "Kamis", "Jumat", "Sabtu"
+  ];
+  
+  const bulanID = [
+    "Januari", "Februari", "Maret", "April",
+    "Mei", "Juni", "Juli", "Agustus",
+    "September", "Oktober", "November", "Desember"
+  ];
+  
+  const cTanggal = document.getElementById("cTanggal");
+  const pCTanggal = document.getElementById("pCTanggal");
+  const pCTanggalTTD = document.getElementById("pCTanggalTTD");
+  
+  cTanggal.addEventListener("change", () => {
+    if (!cTanggal.value) return;
+  
+    const d = new Date(cTanggal.value);
+    const hasil =
+      hariID[d.getDay()] + ", " +
+      d.getDate() + " " +
+      bulanID[d.getMonth()] + " " +
+      d.getFullYear();
+  
+    // isi ke informasi umum
+    pCTanggal.textContent = hasil;
+  
+    // isi ke atas TTD
+    pCTanggalTTD.textContent = hasil;
+  });
+  </script>
+  
 </body>
 </html> 
